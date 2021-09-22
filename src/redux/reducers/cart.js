@@ -4,7 +4,7 @@ const initialState = {
     itemsCount: 0
 }
 
-const getTotalPrice = arr => arr.reduce((sum, obj) => obj.price + sum,0)
+const getTotalPrice = arr => arr.reduce((sum, obj) => obj.price + sum, 0)
 
 const pizzas = (state = initialState, action) => {
     switch (action.type) {
@@ -19,7 +19,6 @@ const pizzas = (state = initialState, action) => {
                     totalPrice: getTotalPrice(currentPizzaItems)
                 }
             }
-
             const allPizzas = [].concat(...Object.values(newItems).map(obj => obj.items))
 
             return {
@@ -29,9 +28,30 @@ const pizzas = (state = initialState, action) => {
                 totalPrice: getTotalPrice(allPizzas)
             }
         }
+        case "CLEAR_PIZZA_CART": {
+            return {
+                totalPrice: 0,
+                totalCount: 0,
+                items: {}
+            }
+        }
+        case 'DELETE_CART_ITEM': {
+            const newItems = {
+                ...state.items
+            }
+            const currentTotalPrice = newItems[action.payload].totalPrice
+            const currentTotalCount = newItems[action.payload].items.length
+            delete newItems[action.payload]
+            return {
+                ...state,
+                totalPrice: state.totalPrice - currentTotalPrice,
+                itemsCount: state.itemsCount - currentTotalCount,
+                items: newItems
+            }
+        }
         default:
             return state
-        }
+    }
 }
 
 export default pizzas

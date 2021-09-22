@@ -49,7 +49,7 @@ const Home = () => {
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
                 {isLoaded ? items.map((item) => {
-                    return <PizzaBlock totalPizzaCount={cartItems[item.id] && cartItems[item.id].length} addPizzaToCart={onAddPizzaToCart} {...item} key={item.id}/>
+                    return <PizzaBlock totalPizzaCount={cartItems[item.id] && cartItems[item.id].items.length} addPizzaToCart={onAddPizzaToCart} {...item} key={item.id}/>
                 }) : Array(10)
                     .fill(null)
                     .map((_, index) => <LoadingBlock key={index}/>)}

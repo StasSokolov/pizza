@@ -40,7 +40,7 @@ const Button = () => {
                     strokeLinejoin="round"
                 />
             </svg>
-            <span>{itemsCount}</span>
+            <span>{itemsCount ? itemsCount : 0}</span>
         </button>
     )
 }
