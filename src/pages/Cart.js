@@ -2,7 +2,7 @@ import React from "react";
 import emptyCart from '../assets/img/empty-cart.png'
 import CartItem from "../components/CartItem";
 import {useDispatch, useSelector} from "react-redux";
-import {clearCart, deleteCartItem} from "../redux/actions/cart";
+import {clearCart, deleteCartItem, minusCartItem, plusCartItem} from "../redux/actions/cart";
 import {Link} from "react-router-dom";
 
 const Cart = () => {
@@ -23,6 +23,14 @@ const Cart = () => {
 
     const onRemoveItem = (id) => {
         dispatch(deleteCartItem(id))
+    }
+
+    const onPlusItem = (id) => {
+        dispatch(plusCartItem(id))
+    }
+
+    const onMinusItem = (id) => {
+        dispatch(minusCartItem(id))
     }
 
 
@@ -95,10 +103,13 @@ const Cart = () => {
                                 return (
                                     <CartItem imageUrl={item.imageUrl} name={item.name}
                                               id={item.id}
+                                              key={item.id}
                                               size={item.size}
                                               totalPrice={items[item.id].totalPrice}
                                               totalCount={items[item.id].items.length}
                                               onRemove={onRemoveItem}
+                                              onMinus={onMinusItem}
+                                              onPlus={onPlusItem}
                                               type={item.type}/>
                                 )
                             })
